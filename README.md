@@ -1,27 +1,44 @@
 # Sách Tri Ân · 20/11
 
-Website tương tác mừng ngày Nhà giáo Việt Nam. Cuốn sách, thư viện và các vật phẩm được dựng bằng hình học Three.js. Chữ và hoa văn in trên sách được vẽ bằng Canvas 2D với phông chữ tiếng Việt lưu trong dự án.
+Website tương tác mừng ngày Nhà giáo Việt Nam. Mở cuốn sách 3D, lật trang và khám phá năm lời chúc gửi đến thầy cô. Sau lời chúc thứ năm, lật tiếp để mở Cuốn Sách Ngân Hà. Nhạc nền tiếp tục phát khi chuyển cảnh.
 
-## Chạy trên Windows
+## 1. Tải mã nguồn
 
-Yêu cầu Node.js 22.12+ hoặc Node.js 24.
+Cài [Node.js 24 LTS](https://nodejs.org/) hoặc Node.js 22 từ bản 22.12 trở lên. Node.js đi kèm npm. Mở terminal mới và chạy `node -v` và `npm -v` để kiểm tra.
 
-```powershell
-Set-Location 'D:\CODE\the-magical-book'
-npm.cmd install
-npm.cmd run dev
+**Dùng Git:** Cài [Git](https://git-scm.com/downloads), mở terminal ở thư mục bạn muốn lưu dự án rồi chạy:
+
+```sh
+git clone https://github.com/kenG-8/20-11.git
+cd 20-11
 ```
 
-Mở địa chỉ Vite in trong terminal (thường là `http://localhost:5173`). Dùng `npm.cmd run build` để kiểm tra TypeScript và tạo bản phát hành trong `dist`; dùng `npm.cmd run preview` để chạy thử bản phát hành.
+**Tải ZIP:** Trên [trang GitHub của dự án](https://github.com/kenG-8/20-11), chọn **Code → Download ZIP**, giải nén, rồi mở terminal trong thư mục vừa giải nén có tệp `package.json`. Cách này không cần cài Git.
 
-Chạm vào bìa để mở sách. Chạm vào trang, dùng phím mũi tên hoặc vuốt ngang để lật. Năm vật phẩm quanh sách đều có lời chúc riêng; cũng có thể chọn chúng từ các nút phía dưới. Trình duyệt không có WebGL 2 sẽ tự chuyển sang bản đọc HTML.
+## 2. Cài và chạy website
 
-## Nhạc nền
+Chạy các lệnh sau trên Windows, macOS hoặc Linux, trong thư mục có `package.json`. Máy cần kết nối mạng khi cài thư viện lần đầu.
 
-Bài "Người gieo mầm xanh" – Hứa Kim Tuyền × Hoàng Dũng được lưu tại `public/audio/nguoi-gieo-mam-xanh.mp3`, giữ nguyên file MP3. Trang thử phát khi vừa mở. Nếu trình duyệt chặn tự phát có tiếng, thao tác mở sách cũng bật nhạc. Nút loa điều khiển cả nhạc nền và hiệu ứng âm thanh. Nhạc lặp lại khi hết bài; tắt rồi bật lại sẽ tiếp tục tại vị trí đang nghe. Trang ghi nhớ lựa chọn tắt tiếng trong tab hiện tại.
+```sh
+npm install
+npm run dev
+```
 
-## Đưa lên Cloudflare Pages
+Mở địa chỉ **Local** hiện trong terminal, thường là [http://localhost:5173](http://localhost:5173). Giữ terminal mở khi dùng website; nhấn **Ctrl+C** để dừng. Trên Windows, nếu PowerShell chặn `npm.ps1`, dùng `npm.cmd install` và `npm.cmd run dev`.
 
-Sau lời chúc thứ 5, lật tiếp để mở Cuốn Sách Ngân Hà. Trang này dùng chung trình phát nhạc với cuốn sách, nên bài hát tiếp tục ở đúng vị trí khi chuyển cảnh.
+## 3. Tạo bản build
 
-Sau khi chạy `npm.cmd run build`, tải nội dung thư mục `dist` hoặc file `cloudflare-pages-ngan-ha.zip` lên Cloudflare Pages bằng Direct Upload. Tải bản build, không tải toàn bộ thư mục dự án hoặc `node_modules`.
+```sh
+npm run build
+npm run preview
+```
+
+Lệnh `build` kiểm tra TypeScript rồi xuất website vào `dist/`. Lệnh `preview` để xem bản build trên máy, thường tại [http://localhost:4173](http://localhost:4173). Nếu PowerShell chặn `npm.ps1`, dùng `npm.cmd` cho hai lệnh trên.
+
+Để đưa lên Cloudflare Pages bằng Direct Upload, tải thư mục `dist/` hoặc một tệp ZIP có `index.html` của bản build ở cấp ngoài cùng. Không tải thư mục `node_modules` hay ZIP mã nguồn.
+
+## Lỗi thường gặp
+
+- **`ENOENT: Could not read package.json`:** Terminal đang ở sai thư mục. Dùng `dir package.json` trên Windows hoặc `ls package.json` trên macOS/Linux. Nếu không thấy tệp, chuyển vào thư mục đã clone hoặc giải nén, rồi chạy lại lệnh npm.
+- **Không nghe nhạc khi vừa mở:** Một số trình duyệt chặn tự phát có tiếng. Chạm vào bìa sách hoặc bấm biểu tượng loa. Nhạc nền “Người gieo mầm xanh” của Hứa Kim Tuyền và Hoàng Dũng nằm trong `public/audio/nguoi-gieo-mam-xanh.mp3`.
+- **Không hiện cảnh 3D:** Nếu trình duyệt không hỗ trợ WebGL 2, website tự chuyển sang bản đọc HTML.
